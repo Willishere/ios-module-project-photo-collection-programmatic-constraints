@@ -11,7 +11,8 @@ import UIKit
 class PhotoCollectionViewCell: UICollectionViewCell {
     
     private var imageView: UIImageView!
-
+    private var nameLabel: UILabel!
+    
     var photo: Photo?
     
     override init(frame: CGRect) {
@@ -23,6 +24,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         super.init(coder: aDecoder)
         setUpSubviews()
     }
+    
+
     
     private func setUpSubviews(){
         let photoImage = UIImageView()
@@ -74,14 +77,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint(item: label,
                            attribute: .top,
                            relatedBy: .equal,
-                           toItem: label,
+                           toItem: photoImage,
                            attribute: .top,
                            multiplier: 1,
                            constant: 4).isActive = true
         NSLayoutConstraint(item: label,
                            attribute: .leading,
                            relatedBy: .equal,
-                           toItem: label,
+                           toItem: photoImage,
                            attribute: .leading,
                            multiplier: 1,
                            constant: 2).isActive = true
@@ -89,16 +92,18 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint(item: label,
                            attribute: .trailing,
                            relatedBy: .equal,
-                           toItem: label,
+                           toItem: photoImage,
                            attribute: .trailing,
                            multiplier: 1,
                            constant: -2).isActive = true
         
-        
+        self.nameLabel = label
     }
     
-    func updateViews(){
-        
+    private func updateViews() {
+        guard let imageData = photo?.imageData else {return}
+        imageView.image = UIImage(data: imageData)
+        nameLabel.text = photo?.title
     }
     
 }
