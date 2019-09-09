@@ -9,15 +9,27 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
+    
+    private var imageView: UIImageView!
 
     var photo: Photo?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setUpSubviews()
+    }
     
     private func setUpSubviews(){
         let photoImage = UIImageView()
         photoImage.translatesAutoresizingMaskIntoConstraints = false
         photoImage.contentMode = .scaleAspectFit
         addSubview(photoImage)
-        
+      
         NSLayoutConstraint(item: photoImage,
                            attribute: .top,
                            relatedBy: .equal,
@@ -50,7 +62,42 @@ class PhotoCollectionViewCell: UICollectionViewCell {
                            multiplier: 1,
                            constant: 0).isActive = true
         
-        self.photoImage = photoImage
+        self.imageView = photoImage
+        
+        
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        addSubview(label)
+        
+        NSLayoutConstraint(item: label,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: label,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 4).isActive = true
+        NSLayoutConstraint(item: label,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: label,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 2).isActive = true
+        
+        NSLayoutConstraint(item: label,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: label,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: -2).isActive = true
+        
+        
+    }
+    
+    func updateViews(){
         
     }
     
